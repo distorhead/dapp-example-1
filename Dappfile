@@ -1,0 +1,18 @@
+dimg do
+  docker.from 'ubuntu:16.04'
+
+  git 'https://github.com/distorhead/dapp-external-stage-dependency.git' do
+    commit 'c7be1c473d4a6b38f31dff35952b1da5af2bb45f'
+
+    add '/configs/config.ini' do
+      to '/var/www/config/config.ini'
+      stage_dependencies.setup ''
+    end
+  end
+
+  shell.setup do
+    run "echo SETUP BEGIN"
+    run "cat /var/www/config/config.ini"
+    run "echo SETUP DONE"
+  end
+end
